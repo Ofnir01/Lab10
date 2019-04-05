@@ -2,6 +2,9 @@
 #include <queue>
 #include <random>
 #include <ctime>
+#include <iostream>
+using std::cout;
+using std::endl;
 using std::queue;
 
 //***********************************************************
@@ -77,12 +80,9 @@ void Bank::nextMinute() {
 //Bank simultation definition.
 void Bank::simulate() {
 	do {
-		line.push(custGenPtr->nextMinute());
-		if (custGenPtr->nextMinute() != nullptr) {
-			currQueue++;
-			maxWait += custGenPtr->nextMinute()->waitTime;
-		}
-		timeOpen++;
+		nextMinute();
+		cout << "Number of customers in line after " << timeOpen << " minutes open: " << currQueue << endl;
+		cout << "Current maximum wait time for the last customer in the line: " << maxWait;
 	} while (timeOpen <= workDay || currQueue != 0);
 }
 
