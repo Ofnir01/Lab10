@@ -1,6 +1,7 @@
 #ifndef BANK_H_
 #define BANK_H_
-
+#include <queue>
+using std::queue;
 //*******************************************************************************************************************
 //Customer structure. This structure will keep track of the following:												*
 //Record the time when the customer arrived in line [as an integer number of minutes from the time bank opened]		*
@@ -17,7 +18,14 @@ struct Customer {
 //It will decrement the number of minutes left till the next customer.												*
 //*******************************************************************************************************************
 class CustomerGenerator {
+private:
+	int min_to_new_gen;
 
+public:
+	//---------------------------------------------------------------------------------------
+	//This function decrements the number of minutes left  till the next customer			-
+	//---------------------------------------------------------------------------------------
+	void nextMinute();
 };
 
 //******************************************************************************************************************
@@ -29,6 +37,13 @@ class CustomerGenerator {
 //*******************************************************************************************************************
 class Bank
 {
+private:
+	const int workDay = 480;	//Number of minutes open.
+	int timePast;				//Number of minutes since the bank opened.
+	int maxQueue;				//Number of the maximum queue length seen during the day.
+	int maxWait;				//Number of the maximum waiting time.
+	queue<Customer*> line;		//Queue that indicates the line of customers waiting.
+
 public:
 	Bank();
 	~Bank();
