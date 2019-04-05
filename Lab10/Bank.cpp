@@ -55,27 +55,28 @@ void Bank::nextMinute() {
 			}
 		}
 
-		//If statement that check if the line is not empty to decrement the amount of help
-		//time for the customer, and the overall maxWait.
-		if (!line.empty() && currCustomer != nullptr) {
-			currCustomer->waitTime--;
-			
-			if(maxWait >= 1)
-				maxWait--;
+		//If statement that check if someone is being helped to decrement the amount of help
+		//time for the customer.
+		if (currCustomer != nullptr) {
+			currCustomer->helpTime--;
 		}
 		
 		//If statement that checks if there is not a current client being helped to pop the currendt one
 		//(if necesarry) 
-		if (!line.empty() && currCustomer->waitTime == 0) {
+		if (!line.empty() && currCustomer->helpTime == 0) {
 			line.pop();
 			currQueue--;
-			if (line.size() > maxQueue) {
-				maxQueue = line.size();
-			}
 		}
 		
-		//Always update maxQueue to the current number of line.
+		//Decrement the amount of currWait.
+		if (currWait >= 1)
+			currWait--;
+
+		//Always update maxQueue to the current number of line and check if maxQueue needs to be updated.
 		currQueue = line.size();
+		if (line.size() > maxQueue) {
+			maxQueue = line.size();
+		}
 }
 
 //Bank simultation definition.
@@ -86,7 +87,7 @@ void Bank::simulate() {
 		cout << "Current maximum wait time for the last customer in the line: " << maxWait << endl << endl;
 	} while (timeOpen <= workDay || currQueue <= 0);
 
-	cout << "T";
+	//cout << "";
 }
 
 
@@ -101,7 +102,7 @@ Customer* CustomerGenerator::nextMinute() {
 	//min_to_new_gen--;
 	if (min_to_new_gen-- == 0) {
 		//Set total time for that customer to be helped.
-		newCust->waitTime = randInt1To4();
+		newCust->helpTime = randInt1To4();
 		min_to_new_gen = randInt1To4();
 		return newCust;
 	}
