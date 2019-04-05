@@ -1,17 +1,26 @@
 #include "Bank.h"
+#include <queue>
+using std::queue;
 
-//
-//Customer Generator definition.
-//
+//***************************************
+//CustomerGenerator class definition.	*
+//***************************************
 
-
-//
-//Bank definition.
-//
-Bank::Bank() {
+//CustomerGenerator nextMinute definition.
+void CustomerGenerator::nextMinute() {
 
 }
 
-Bank::~Bank() {
+//***************************************
+//Bank class definition.				*
+//***************************************
+
+//Bank nextMinute definition.
+void Bank::nextMinute() {
+
+}
+
+//Bank simultation definition.
+void Bank::simulate() {
 
 }

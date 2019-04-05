@@ -45,8 +45,24 @@ private:
 	queue<Customer*> line;		//Queue that indicates the line of customers waiting.
 
 public:
-	Bank();
-	~Bank();
+	//---------------------------------------------------------------------------------------
+	//nextMinute function. This function will update the followig info:						-
+	//Will increment the number of minutes since opening. If there is a customer being		-
+	//helped, decrement the amount of help time still required for that customer; if the	-
+	//customer has no more minutes required, the customer leaves. If the bank is still open	-
+	//use nextMinute() of CustomerGenerator to check for a possible new customer to add		-
+	//to the waiting list. Note the current length of the line and check if the maximum		-
+	//should be updated. If there are customers in line and no customers being helped,		-
+	//begin helping the first customer in line and pop him from the waiting line.			-
+	//---------------------------------------------------------------------------------------
+	void nextMinute();
+
+	//---------------------------------------------------------------------------------------
+	//simulate function. This function should simulate a day at the bank by calling			-
+	//nextMinute() for each minute of the work day and then continuing to call it until		-
+	//everyone at line in the bank has been helped.											-
+	//---------------------------------------------------------------------------------------
+	void simulate();
 };
 
 #endif
