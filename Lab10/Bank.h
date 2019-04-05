@@ -9,7 +9,7 @@ using std::queue;
 //*******************************************************************************************************************
 struct Customer {
 	int arriveTime;		//Time (in minutes) since the bank opened.
-	int waitTime;		//Time (in minutes) that the customer needs to wait to be attended.
+	int waitTime;		//Time (in minutes) that the customer needs to be helped.
 };
 
 //*******************************************************************************************************************
@@ -25,7 +25,7 @@ public:
 	//---------------------------------------------------------------------------------------
 	//This function decrements the number of minutes left  till the next customer			-
 	//---------------------------------------------------------------------------------------
-	Customer nextMinute(Bank&);
+	Customer* nextMinute(Bank&);
 };
 
 //******************************************************************************************************************
@@ -65,10 +65,8 @@ public:
 	//---------------------------------------------------------------------------------------
 	void simulate();
 
-	int getPastTime() const;
-
 	//Define CustomerGerenator as a frind to have acces to the private member variables.
-	friend Customer CustomerGenerator::nextMinute(Bank&);
+	friend Customer* CustomerGenerator::nextMinute(Bank&);
 };
 
 #endif
