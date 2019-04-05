@@ -44,8 +44,9 @@ void Bank::nextMinute() {
 		//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
 		//to check for a possible new customer to add to the waiting line.
 		if (timeOpen <= workDay) {
-			if (custGenPtr->nextMinute() != nullptr) {
-				line.push(custGenPtr->nextMinute());
+			newCustomer = custGenPtr->nextMinute();
+			if (newCustomer != nullptr) {
+				line.push(newCustomer);
 				currCustomer = line.front();
 				currQueue++;
 				if (line.size() > maxQueue) {
@@ -56,17 +57,17 @@ void Bank::nextMinute() {
 
 		//If statement that check if the line is not empty to decrement the amount of help
 		//time for the customer, and the overall maxWait.
-		if (!line.empty()) {
+		if (!line.empty() && currCustomer != nullptr) {
 			currCustomer->waitTime--;
-			timeOpen++;
-			maxWait--;
+			
+			if(maxWait >= 1)
+				maxWait--;
 		}
 		
 		//If statement that checks if there is not a current client being helped to pop the currendt one
 		//(if necesarry) 
 		if (!line.empty() && currCustomer->waitTime == 0) {
 			line.pop();
-			//maxWait -= ;
 			currQueue--;
 			if (line.size() > maxQueue) {
 				maxQueue = line.size();
@@ -82,8 +83,10 @@ void Bank::simulate() {
 	do {
 		nextMinute();
 		cout << "Number of customers in line after " << timeOpen << " minutes open: " << currQueue << endl;
-		cout << "Current maximum wait time for the last customer in the line: " << maxWait;
-	} while (timeOpen <= workDay || currQueue != 0);
+		cout << "Current maximum wait time for the last customer in the line: " << maxWait << endl << endl;
+	} while (timeOpen <= workDay || currQueue <= 0);
+
+	cout << "T";
 }
 
 
@@ -93,9 +96,10 @@ void Bank::simulate() {
 //CustomerGenerator nextMinute definition.
 Customer* CustomerGenerator::nextMinute() {
 	static Customer* newCust;
+	newCust = new Customer;
 	static int min_to_new_gen = randInt1To4();
-	min_to_new_gen--;
-	if (min_to_new_gen == 0) {
+	//min_to_new_gen--;
+	if (min_to_new_gen-- == 0) {
 		//Set total time for that customer to be helped.
 		newCust->waitTime = randInt1To4();
 		min_to_new_gen = randInt1To4();
