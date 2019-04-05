@@ -41,6 +41,7 @@ private:
 	const int workDay = 480;		//Number of minutes open.
 	int timeOpen;					//Number of minutes since the bank opened.
 	int maxQueue;					//Number of the maximum queue length seen during the day.
+	int currQueue;					//Number of people in the line at every minute.
 	int maxWait;					//Number of the maximum waiting time.
 	Customer* currCustomer;			//Pointer to current customer.
 	queue<Customer*> line;			//Queue that indicates the line of customers waiting.

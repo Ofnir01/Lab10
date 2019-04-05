@@ -27,8 +27,9 @@ int randInt1To4() {
 //Constructor.
 Bank::Bank() {
 	timeOpen = 0;
-	maxQueue = 0;
+	currQueue = 0;
 	maxWait = 0;
+	maxQueue = 0;
 	currCustomer = nullptr;
 }
 
@@ -43,7 +44,10 @@ void Bank::nextMinute() {
 			if (custGenPtr->nextMinute() != nullptr) {
 				line.push(custGenPtr->nextMinute());
 				currCustomer = line.front();
-				maxQueue++;
+				currQueue++;
+				if (line.size() > maxQueue) {
+					maxQueue = line.size();
+				}
 			}
 		}
 
@@ -60,11 +64,14 @@ void Bank::nextMinute() {
 		if (!line.empty() && currCustomer->waitTime == 0) {
 			line.pop();
 			//maxWait -= ;
-			maxQueue--;
+			currQueue--;
+			if (line.size() > maxQueue) {
+				maxQueue = line.size();
+			}
 		}
 		
 		//Always update maxQueue to the current number of line.
-		maxQueue = line.size();
+		currQueue = line.size();
 }
 
 //Bank simultation definition.
@@ -72,11 +79,11 @@ void Bank::simulate() {
 	do {
 		line.push(custGenPtr->nextMinute());
 		if (custGenPtr->nextMinute() != nullptr) {
-			maxQueue++;
+			currQueue++;
 			maxWait += custGenPtr->nextMinute()->waitTime;
 		}
 		timeOpen++;
-	} while (timeOpen <= workDay || maxQueue != 0);
+	} while (timeOpen <= workDay || currQueue != 0);
 }
 
 

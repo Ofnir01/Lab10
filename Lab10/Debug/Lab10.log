@@ -1,0 +1,4 @@
+﻿  Bank.cpp
+c:\users\emmanuel.torres\desktop\lab10\lab10\bank.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\emmanuel.torres\desktop\lab10\lab10\bank.cpp(48): warning C4018: '>': signed/unsigned mismatch
+c:\users\emmanuel.torres\desktop\lab10\lab10\bank.cpp(68): warning C4018: '>': signed/unsigned mismatch
