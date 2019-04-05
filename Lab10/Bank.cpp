@@ -29,55 +29,54 @@ Bank::Bank() {
 	timeOpen = 0;
 	maxQueue = 0;
 	maxWait = 0;
+	currCustomer = nullptr;
 }
 
 //Bank nextMinute definition.
 void Bank::nextMinute() {
-	do {
 		//Increment the time that the bank has been open.
 		timeOpen++;
 
 		//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
 		//to check for a possible new customer to add to the waiting line.
 		if (timeOpen <= workDay) {
-			line.push(ptr->nextMinute()); //FIGURE OUT HOW TO SEND THE BANK REFERNECE TO THE FUNCTION.
-			maxQueue++;
+			if (custGenPtr->nextMinute() != nullptr) {
+				line.push(custGenPtr->nextMinute());
+				currCustomer = line.front();
+				maxQueue++;
+			}
 		}
 
 		//If statement that check if the line is not empty to decrement the amount of help
 		//time for the customer, and the overall maxWait.
 		if (!line.empty()) {
-			do {
-				line.front()->waitTime--;
-				timeOpen++;
-				maxWait--;
-			} while (line.front()->waitTime >= 0);
+			currCustomer->waitTime--;
+			timeOpen++;
+			maxWait--;
+		}
+		
+		//If statement that checks if there is not a current client being helped to pop the currendt one
+		//(if necesarry) 
+		if (!line.empty() && currCustomer->waitTime == 0) {
 			line.pop();
+			//maxWait -= ;
 			maxQueue--;
 		}
 		
-		
-		//FIGURE OUT HOW TO WORK STEP 5 OF THE LAB. Isn't this the same as the previous function?
-		if (!line.empty() && line.front()->waitTime == 0) {
-			;
-		}
-
 		//Always update maxQueue to the current number of line.
 		maxQueue = line.size();
-
-	} while (maxQueue == 0);
 }
 
 //Bank simultation definition.
 void Bank::simulate() {
 	do {
-		line.push(ptr->nextMinute()); //FIGURE OUT HOW TO SEND THE BANK REFERNECE TO THE FUNCTION.
-		if (ptr->nextMinute() != nullptr) {
+		line.push(custGenPtr->nextMinute());
+		if (custGenPtr->nextMinute() != nullptr) {
 			maxQueue++;
-			maxWait += ptr->nextMinute()->waitTime;
+			maxWait += custGenPtr->nextMinute()->waitTime;
 		}
 		timeOpen++;
-	} while (timeOpen <= workDay);
+	} while (timeOpen <= workDay || maxQueue != 0);
 }
 
 
@@ -85,26 +84,16 @@ void Bank::simulate() {
 //CustomerGenerator class definition.	*
 //***************************************
 //CustomerGenerator nextMinute definition.
-Customer* CustomerGenerator::nextMinute(Bank& bank) {
-	Customer* newCust;
-	min_to_new_gen = randInt1To4();
-	//Do something to decrement time
-
-	do {
-		min_to_new_gen--;
-		bank.timeOpen++;
-		if (min_to_new_gen == 0) {
-			
-			//Set arriving time for the customer.
-			newCust->arriveTime = bank.timeOpen;
-
-			//Set total time for that customer to be helped.
-			newCust->waitTime = randInt1To4();
-
-			return newCust;
-		}
-
-		else
-			return nullptr;
-	} while (min_to_new_gen >= 0);
+Customer* CustomerGenerator::nextMinute() {
+	static Customer* newCust;
+	static int min_to_new_gen = randInt1To4();
+	min_to_new_gen--;
+	if (min_to_new_gen == 0) {
+		//Set total time for that customer to be helped.
+		newCust->waitTime = randInt1To4();
+		min_to_new_gen = randInt1To4();
+		return newCust;
+	}
+	else
+		return nullptr;
 }
