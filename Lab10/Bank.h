@@ -8,8 +8,8 @@ using std::queue;
 //Keep track of how many more minutes of help that customer will require.											*
 //*******************************************************************************************************************
 struct Customer {
-	int timeRecord;
-	int waitTime;
+	int arriveTime;		//Time (in minutes) since the bank opened.
+	int waitTime;		//Time (in minutes) that the customer needs to wait to be attended.
 };
 
 //*******************************************************************************************************************
@@ -25,7 +25,7 @@ public:
 	//---------------------------------------------------------------------------------------
 	//This function decrements the number of minutes left  till the next customer			-
 	//---------------------------------------------------------------------------------------
-	void nextMinute();
+	Customer nextMinute();
 };
 
 //******************************************************************************************************************
@@ -39,10 +39,11 @@ class Bank
 {
 private:
 	const int workDay = 480;	//Number of minutes open.
-	int timePast;				//Number of minutes since the bank opened.
+	int timeOpen;				//Number of minutes since the bank opened.
 	int maxQueue;				//Number of the maximum queue length seen during the day.
 	int maxWait;				//Number of the maximum waiting time.
 	queue<Customer*> line;		//Queue that indicates the line of customers waiting.
+	CustomerGenerator* ptr;		//Reference to a CustomerGenerator object.
 
 public:
 	//---------------------------------------------------------------------------------------
@@ -63,6 +64,11 @@ public:
 	//everyone at line in the bank has been helped.											-
 	//---------------------------------------------------------------------------------------
 	void simulate();
+
+	int getPastTime() const;
+
+	//Define CustomerGerenator as a frind to have acces to the private member variables.
+	friend class CustomerGenreator;
 };
 
 #endif

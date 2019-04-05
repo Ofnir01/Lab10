@@ -18,18 +18,18 @@ int randInt1To4() {
 	return dist1To4(randEngine);
 }
 
-//***************************************
-//CustomerGenerator class definition.	*
-//***************************************
 
-//CustomerGenerator nextMinute definition.
-void CustomerGenerator::nextMinute() {
-	min_to_new_gen = randInt1To4();
-}
 
 //***************************************
 //Bank class definition.				*
 //***************************************
+
+//Constructor.
+Bank::Bank() {
+	timeOpen = 0;
+	maxQueue = 0;
+	maxWait = 0;
+}
 
 //Bank nextMinute definition.
 void Bank::nextMinute() {
@@ -41,4 +41,31 @@ void Bank::simulate() {
 
 }
 
+//***************************************
+//CustomerGenerator class definition.	*
+//***************************************
 
+//CustomerGenerator nextMinute definition.
+Customer CustomerGenerator::nextMinute() {
+	Customer* newCust;
+	min_to_new_gen = randInt1To4();
+	//Do something to decrement time
+
+	while (min_to_new_gen >= 0) {
+		min_to_new_gen--;
+		//timePast++;		//DO SOMTHING TO ESTABLISH A FRIEND RELATIONSHIP.
+	}
+
+	if (min_to_new_gen == 0) {
+		newCust = new Customer;
+	}
+
+	//DO SOMTHING TO ESTSBLIDH A FRIEND RELATIONSHIP.
+	//Set arriving time for the customer.
+	newCust->arriveTime = timeOpen;
+
+	//Set waiting time for that customer.
+	newCust->waitTime = maxWait;
+
+	return *newCust; //CHECK CORRECTNES OF THIS STATEMENT.
+}
