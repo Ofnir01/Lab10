@@ -34,7 +34,15 @@ Bank::Bank() {
 //Bank nextMinute definition.
 void Bank::nextMinute() {
 	do {
-		timeOpen++;			//Increment the time that the bank has been open.
+		//Increment the time that the bank has been open.
+		timeOpen++;
+
+		//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
+		//to check for a possible new customer to add to the waiting line.
+		if (timeOpen <= workDay) {
+			line.push(ptr->nextMinute()); //FIGURE OUT HOW TO SEND THE BANK REFERNECE TO THE FUNCTION.
+			maxQueue++;
+		}
 
 		//If statement that check if the line is not empty to decrement the amount of help
 		//time for the customer, and the overall maxWait.
@@ -48,20 +56,14 @@ void Bank::nextMinute() {
 			maxQueue--;
 		}
 		
-		//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
-		//to check for a possible new customer to add to the waiting line.
-		if (timeOpen <= workDay) {
-			line.push(ptr->nextMinute()); //FIGURE OUT HOW TO SEND THE BANK REFERNECE TO THE FUNCTION.
-			maxQueue++;
-		}
 		
-		//Always update maxQueue to the current number of line.
-		maxQueue = line.size();
-
-		//FIGURE OUT HOW TO WORK STEP 5 OF THE LAB.
-		if (!line.empty() && line.front()->waitTime == ) {
+		//FIGURE OUT HOW TO WORK STEP 5 OF THE LAB. Isn't this the same as the previous function?
+		if (!line.empty() && line.front()->waitTime == 0) {
 			;
 		}
+
+		//Always update maxQueue to the current number of line.
+		maxQueue = line.size();
 
 	} while (maxQueue == 0);
 }

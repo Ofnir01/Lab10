@@ -19,7 +19,7 @@ struct Customer {
 //*******************************************************************************************************************
 class CustomerGenerator {
 private:
-	int min_to_new_gen;
+	static int min_to_new_gen;
 
 public:
 	//---------------------------------------------------------------------------------------
@@ -46,6 +46,9 @@ private:
 	CustomerGenerator* ptr;		//Reference to a CustomerGenerator object.
 
 public:
+	//Default constructor.
+	Bank();
+	
 	//---------------------------------------------------------------------------------------
 	//nextMinute function. This function will update the followig info:						-
 	//Will increment the number of minutes since opening. If there is a customer being		-
