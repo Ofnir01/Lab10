@@ -25,7 +25,7 @@ public:
 	//---------------------------------------------------------------------------------------
 	//This function decrements the number of minutes left  till the next customer			-
 	//---------------------------------------------------------------------------------------
-	Customer nextMinute();
+	Customer nextMinute(Bank&);
 };
 
 //******************************************************************************************************************
@@ -68,7 +68,7 @@ public:
 	int getPastTime() const;
 
 	//Define CustomerGerenator as a frind to have acces to the private member variables.
-	friend class CustomerGenreator;
+	friend Customer CustomerGenerator::nextMinute(Bank&);
 };
 
 #endif

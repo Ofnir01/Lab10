@@ -41,31 +41,29 @@ void Bank::simulate() {
 
 }
 
+
+
 //***************************************
 //CustomerGenerator class definition.	*
 //***************************************
 
 //CustomerGenerator nextMinute definition.
-Customer CustomerGenerator::nextMinute() {
-	Customer* newCust;
+Customer CustomerGenerator::nextMinute(Bank& bank) {
+	Customer newCust;
 	min_to_new_gen = randInt1To4();
 	//Do something to decrement time
 
 	while (min_to_new_gen >= 0) {
 		min_to_new_gen--;
-		//timePast++;		//DO SOMTHING TO ESTABLISH A FRIEND RELATIONSHIP.
+		bank.timeOpen++;
 	}
 
-	if (min_to_new_gen == 0) {
-		newCust = new Customer;
-	}
-
-	//DO SOMTHING TO ESTSBLIDH A FRIEND RELATIONSHIP.
+	//Figure a way to directly access this variables.
 	//Set arriving time for the customer.
-	newCust->arriveTime = timeOpen;
+	newCust.arriveTime = bank.timeOpen;
 
 	//Set waiting time for that customer.
-	newCust->waitTime = maxWait;
+	newCust.waitTime = bank.maxWait;
 
-	return *newCust; //CHECK CORRECTNES OF THIS STATEMENT.
+	return newCust; //CHECK CORRECTNES OF THIS STATEMENT.
 }
