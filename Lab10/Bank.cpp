@@ -112,12 +112,30 @@ void Bank::simulate() {
 Customer* CustomerGenerator::nextMinute() {
 	static Customer* newCust;
 	newCust = new Customer;
-	static int min_to_new_gen = 1; //randInt1To4();
+	static int min_to_new_gen = randInt1To4();
 	
 	if (min_to_new_gen-- == 0) {
 		//Set total time for that customer to be helped.
-		newCust->helpTime = 8;//randInt1To4();
-		min_to_new_gen = 1; //randInt1To4();
+		newCust->helpTime = randInt1To4();
+		min_to_new_gen = randInt1To4();
+		return newCust;
+	}
+	else
+		return nullptr;
+}
+
+//*******************************************
+//CustomerGeneratorTest class definition.	*
+//*******************************************
+Customer* CustomerGeneratorTest::nextMinute() {
+	static Customer* newCust;
+	newCust = new Customer;
+	static int min_to_new_gen = 2;
+
+	if (min_to_new_gen-- == 0) {
+		//Set total time for that customer to be helped.
+		newCust->helpTime = 4;
+		min_to_new_gen = 2;
 		return newCust;
 	}
 	else

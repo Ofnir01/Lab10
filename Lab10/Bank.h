@@ -28,6 +28,18 @@ public:
 	Customer* nextMinute();
 };
 
+//*******************************************************************************************************************
+//CustomerGeneratorTest class. This class inherits publicly from the CustomerGenerator class. It will override the	*
+//already existing function for the sole purpose of unit testing.													*
+//*******************************************************************************************************************
+class CustomerGeneratorTest : public CustomerGenerator {
+public:
+	//---------------------------------------------------------------------------------------
+	//This function decrements the number of minutes left  till the next customer			-
+	//---------------------------------------------------------------------------------------
+	Customer* nextMinute();
+};
+
 //******************************************************************************************************************
 //Bank class. This class will simulate the bank itself. It will have a constant length of a work day. It will		*
 //keep record of the number of minutes since the bank opened. It will have a pointer to the Current customer being	*
@@ -38,7 +50,7 @@ public:
 class Bank
 {
 private:
-	const int workDay = 80;			//Number of minutes open.
+	const int workDay = 480;		//Number of minutes open.
 	int currTime;					//Number of minutes since the bank opened.
 	int maxQueue;					//Number of the maximum queue length seen during the day.
 	int currQueue;					//Number of people in the line at every minute.
@@ -74,5 +86,10 @@ public:
 	void simulate();
 
 };
+
+//*******************************************************************************************************************
+//BankTest class. This class inherits publicly from the Bank class. It will override the already					*
+//existing function for the sole purpose of unit testing.															*
+//*******************************************************************************************************************
 
 #endif
