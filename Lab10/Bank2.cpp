@@ -26,7 +26,8 @@ Bank::Bank() {
 	currTime = 0;
 	waitLine = 0;
 	waitTime = 0;
-	maxQueue = 0;
+	maxLine = 0;
+	maxWait = 0;
 	totalCust = 0;
 	currCustomer = nullptr;
 }
@@ -47,6 +48,7 @@ void Bank::nextMinute() {
 			totalCust++;							//Becuase the new customer was not null ptr, we increment the total amount of customers that the bank has received during the day.
 			line.push(newCustomer);					//store the new customer in the queue
 			newCustomer->arriveTime = currTime;		//Set the arrival time for that customer to be equal to the current time.
+			waitTime += newCustomer->helpTime;		//Add to wait time the amount of help time that the customer needs.
 			currCustomer = line.front();			//Set the front customer of the queue to be the current customer to be helped.
 			
 			//Because que in this simulation is people waiting on the line not counting the one being helped
@@ -56,13 +58,6 @@ void Bank::nextMinute() {
 
 			//Now we procede to report in real time that a customer just arrived to the bank right now.
 			cout << "New customer arrived at minute: " << newCustomer->arriveTime << endl;
-			
-			//We reoprt what is the total wait time at that moment (also counting the amount of time needed by the new arrived one).
-			//COMMENTED OUT BECAUSE IS STILL NOT IMPLEMENTED
-			//cout << "Current wait time in the line: " << currWait << endl;
-
-			//We report how many people are in the line when this customer arrived (also counting the new arrived one).
-			cout << "Current number of customers in the line: " << waitLine << endl << endl;
 		}
 	}
 
@@ -83,16 +78,28 @@ void Bank::nextMinute() {
 
 		//Now that we popped out a customer, we procede to report that the custumer left
 		cout << "Customer left at minute: " << currTime << endl;
-
-
-		//currQueue--; QUEUE SHALL NOT BE DECREMENTED, BECUASE THIS CUSTOMER WAS BEING HELPED AND WAS NOT PART OF THE LINE.
 	}
 
 	//If statement that will check if someone is being helped to decrement his help time.
-	if (currCustomer != nullptr)
+	if (currCustomer != nullptr) {
 		//Becuase the customer arrived to the front desk at the exact start of the minute, by the end of this itereation
 		//the customer would have spend one entire minute being helped, so we decrement the his wait time.
 		currCustomer->helpTime--;
+
+		//Beacuse we helped a customer here. We decrement by one the amount of waitTime in the queue.
+		waitTime--;
+	}
+
+	//Check if maxLine or maxWait need to be updated.
+	if (waitTime > maxWait)
+		maxWait = waitTime;
+
+	if (waitLine > maxLine)
+		maxLine = waitLine;
+
+	//Report the total amount of wait time and wait line in the current minute.
+	cout << "Current wait time minutes in the line: " << waitTime << endl << endl;
+	cout << "Current number of customers in the waiting line: " << waitLine << endl;
 }
 
 //Bank simultation definition.
@@ -102,9 +109,7 @@ void Bank::simulate() {
 	} while (currTime <= workDay || !line.empty());
 
 	//When the bank is already closed and all the customers have left, we procede to show our final results.
-	/* STILL UNDER CUNSTRUCTION.
 	cout << "The total number of customers during the day was: " << totalCust << " customers." << endl;
 	cout << "The maximum wait time for the line during the day was: " << maxWait << " minutes." << endl;
-	cout << "The maximum line length during the day was: " << maxQueue << " customers in line" << endl;
-	*/
+	cout << "The maximum line length during the day was: " << maxLine << " customers in line" << endl;
 }

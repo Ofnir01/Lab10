@@ -52,7 +52,7 @@ class Bank
 protected:
 	const int workDay = 480;		//Number of minutes open.
 	int currTime;					//Number of minutes since the bank opened.
-	int maxQueue;					//Number of the maximum queue length seen during the day.
+	int maxLine;					//Number of the maximum queue length seen during the day.
 	int waitLine;					//Number of people in the line at every minute.
 	int waitTime;					//Number of minutes that a new customer needs to wait since it came to be helped.
 	int maxWait;					//Number of the maximum waiting time register during the day.
@@ -116,7 +116,7 @@ public:
 
 	//Returns the maximum number of the line
 	int maxLine() const {
-		return maxQueue;
+		return maxLine;
 	}
 
 	//Returns the total amount of customers received during the period of time.

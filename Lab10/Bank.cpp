@@ -32,7 +32,7 @@ Bank::Bank() {
 	currTime = 0;
 	waitLine = 0;
 	waitTime = 0;
-	maxQueue = 0;
+	maxLine = 0;
 	totalCust = 0;
 	currCustomer = nullptr;
 }
@@ -59,8 +59,8 @@ void Bank::nextMinute() {
 			
 			totalCust++;
 
-			if (line.size() > maxQueue)
-				maxQueue = line.size() - 1;
+			if (line.size() > maxLine)
+				maxLine = line.size() - 1;
 				
 			if (waitTime > maxWait)
 				maxWait = waitTime;
@@ -106,7 +106,7 @@ void Bank::simulate() {
 
 	cout << "The total number of customers during the day was: " << totalCust << " customers."<< endl;
 	cout << "The maximum wait time for the line during the day was: " << maxWait << " minutes." << endl;
-	cout << "The maximum line length during the day was: " << maxQueue << " customers in line" << endl;
+	cout << "The maximum line length during the day was: " << maxLine << " customers in line" << endl;
 }
 
 
@@ -133,8 +133,8 @@ void BankTest::nextMinute() {
 				waitLine++;
 			
 			totalCust++;
-			if (line.size() - 1 > maxQueue)
-				maxQueue = line.size() - 1;
+			if (line.size() - 1 > maxLine)
+				maxLine = line.size() - 1;
 
 			if (waitTime > maxWait)
 				maxWait = waitTime;
