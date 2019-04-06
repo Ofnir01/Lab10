@@ -29,29 +29,39 @@ int randInt1To4() {
 //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //Constructor.
 Bank::Bank() {
-	timeOpen = 0;
+	currTime = 0;
 	currQueue = 0;
-	maxWait = 0;
+	currWait = 0;
 	maxQueue = 0;
+	totalCust = 0;
 	currCustomer = nullptr;
 }
 
 //Bank nextMinute definition.
 void Bank::nextMinute() {
 		//Increment the time that the bank has been open.
-		timeOpen++;
+		currTime++;
 
 		//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
 		//to check for a possible new customer to add to the waiting line.
-		if (timeOpen <= workDay) {
+		if (currTime <= workDay) {
 			newCustomer = custGenPtr->nextMinute();
+			
 			if (newCustomer != nullptr) {
 				line.push(newCustomer);
 				currCustomer = line.front();
+				currWait += currCustomer->helpTime;
 				currQueue++;
-				if (line.size() > maxQueue) {
+				totalCust++;
+				if (line.size() > maxQueue)
 					maxQueue = line.size();
-				}
+				
+				if (currWait > maxWait)
+					maxWait = currWait;
+
+				cout << "New customer arrived at minute: " << currTime << endl;
+				cout << "Current wait time in line: " << currWait << endl;
+				cout << "Current number of customers in the line: " << currQueue - 1 << endl << endl;
 			}
 		}
 
@@ -68,26 +78,23 @@ void Bank::nextMinute() {
 			currQueue--;
 		}
 		
-		//Decrement the amount of currWait.
+		//Check if maxWait neeeds to be updated and then decrement the amount of currWait.
 		if (currWait >= 1)
 			currWait--;
 
-		//Always update maxQueue to the current number of line and check if maxQueue needs to be updated.
+		//Always update maxQueue to the current number of line.
 		currQueue = line.size();
-		if (line.size() > maxQueue) {
-			maxQueue = line.size();
-		}
 }
 
 //Bank simultation definition.
 void Bank::simulate() {
 	do {
 		nextMinute();
-		cout << "Number of customers in line after " << timeOpen << " minutes open: " << currQueue << endl;
-		cout << "Current maximum wait time for the last customer in the line: " << maxWait << endl << endl;
-	} while (timeOpen <= workDay || currQueue <= 0);
+	} while (currTime <= workDay || currQueue <= 0);
 
-	//cout << "";
+	cout << "The total number of customers during the day was: " << totalCust << " customers."<< endl;
+	cout << "The maximum wait time for the line during the day was: " << maxWait << " minutes." << endl;
+	cout << "The maximum line length during the day was: " << maxQueue << " customers in line" << endl;
 }
 
 
@@ -99,7 +106,7 @@ Customer* CustomerGenerator::nextMinute() {
 	static Customer* newCust;
 	newCust = new Customer;
 	static int min_to_new_gen = randInt1To4();
-	//min_to_new_gen--;
+	
 	if (min_to_new_gen-- == 0) {
 		//Set total time for that customer to be helped.
 		newCust->helpTime = randInt1To4();

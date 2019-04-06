@@ -38,12 +38,13 @@ public:
 class Bank
 {
 private:
-	const int workDay = 480;			//Number of minutes open.
-	int timeOpen;					//Number of minutes since the bank opened.
+	const int workDay = 1000;		//Number of minutes open.
+	int currTime;					//Number of minutes since the bank opened.
 	int maxQueue;					//Number of the maximum queue length seen during the day.
 	int currQueue;					//Number of people in the line at every minute.
 	int currWait;					//Number of minutes that a new customer needs to wait since it came to be helped.
 	int maxWait;					//Number of the maximum waiting time register during the day.
+	int totalCust;					//Total number of customers helped during the day.
 	Customer* newCustomer;			//Pointer to the resent new created customer.
 	Customer* currCustomer;			//Pointer to current customer.
 	queue<Customer*> line;			//Queue that indicates the line of customers waiting.
