@@ -53,7 +53,7 @@ protected:
 	const int workDay = 480;		//Number of minutes open.
 	int currTime;					//Number of minutes since the bank opened.
 	int maxQueue;					//Number of the maximum queue length seen during the day.
-	int currQueue;					//Number of people in the line at every minute.
+	int currLine;					//Number of people in the line at every minute.
 	int currWait;					//Number of minutes that a new customer needs to wait since it came to be helped.
 	int maxWait;					//Number of the maximum waiting time register during the day.
 	int totalCust;					//Total number of customers helped during the day.

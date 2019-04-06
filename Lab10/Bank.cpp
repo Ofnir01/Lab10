@@ -30,7 +30,7 @@ int randInt1To4() {
 //Constructor.
 Bank::Bank() {
 	currTime = 0;
-	currQueue = 0;
+	currLine = 0;
 	currWait = 0;
 	maxQueue = 0;
 	totalCust = 0;
@@ -55,7 +55,7 @@ void Bank::nextMinute() {
 			currCustomer = line.front();
 
 			if (newCustomer != line.front())
-				currQueue++;
+				currLine++;
 			
 			totalCust++;
 
@@ -67,7 +67,7 @@ void Bank::nextMinute() {
 
 			cout << "New customer arrived at minute: " << currCustomer->arriveTime << endl;
 			cout << "Current wait time in line: " << currWait << endl;
-			cout << "Current number of customers in the line: " << currQueue << endl << endl;
+			cout << "Current number of customers in the line: " << currLine << endl << endl;
 				
 		}
 	}
@@ -83,16 +83,16 @@ void Bank::nextMinute() {
 	//(if necesarry) 
 	if (!line.empty() && currCustomer->helpTime <= 0) {
 		line.pop();
-		currQueue--;
+		currLine--;
 		cout << "Customer left at minute: " << currTime << endl;
 		cout << "Current wait time in line: " << currWait << endl ;
-		cout << "Current number of customers in the line: " << currQueue << endl << endl;
+		cout << "Current number of customers in the line: " << currLine << endl << endl;
 	}
 	
 	//Check if maxWait neeeds to be updated and then decrement the amount of currWait.
 	
 	//Always update maxQueue to the current number of line.
-	currQueue = line.size() - 1;
+	currLine = line.size() - 1;
 	
 	if (currWait >= 1)
 		currWait--;
@@ -115,7 +115,7 @@ void Bank::simulate() {
 //***************************************
 void BankTest::nextMinute() {
 	//Increment the time that the bank has been open.
-	if (currTime <= workDayTest || !line.empty())
+	if (currTime <= workDayTest || !line.empty())	
 		currTime++;
 
 	//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
@@ -130,7 +130,7 @@ void BankTest::nextMinute() {
 			currCustomer = line.front();
 
 			if (newCustomer != line.front())
-				currQueue++;
+				currLine++;
 			
 			totalCust++;
 			if (line.size() - 1 > maxQueue)
@@ -141,7 +141,7 @@ void BankTest::nextMinute() {
 
 			cout << "New customer arrived at minute: " << currTime << endl;
 			cout << "Current wait time in line: " << currWait << endl;
-			cout << "Current number of customers in the line: " << currQueue << endl << endl;
+			cout << "Current number of customers in the line: " << currLine << endl << endl;
 
 		}
 	}
@@ -157,12 +157,12 @@ void BankTest::nextMinute() {
 	if (!line.empty() && currCustomer->helpTime <= 0) {
 		line.pop();
 		
-		currQueue--;
+		currLine--;
 		
 		cout << "Customer left at minute: " << currTime << endl;
-		cout << "Current number of customers in the line: " << currQueue << endl;
+		cout << "Current number of customers in the line: " << currLine << endl;
 
-		currQueue = line.size() - 1;
+		currLine = line.size() - 1;
 	}
 
 	if (currWait >= 1)
