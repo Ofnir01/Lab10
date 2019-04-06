@@ -93,7 +93,7 @@ public:
 //*******************************************************************************************************************
 class BankTest : public Bank {
 private:
-	const int workDay = 20;
+	const int workDayTest = 10;
 	CustomerGeneratorTest* custGenTestPtr;
 
 public:
@@ -102,6 +102,12 @@ public:
 	//for unit testing.																		-
 	//---------------------------------------------------------------------------------------
 	void nextMinute();
+
+	//---------------------------------------------------------------------------------------
+	//Function inherited from Bank class, with slight modifications that make it usable		-
+	//for unit testing.																		-
+	//---------------------------------------------------------------------------------------
+	void simulate();
 
 	//Returns the maximum amount of waiting time
 	int maxWaiting() const {

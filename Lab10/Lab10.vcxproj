@@ -124,7 +124,6 @@
   <ItemGroup>
     <ClCompile Include="Bank.cpp" />
     <ClCompile Include="Bank_test_cases.cpp" />
-    <ClCompile Include="Lab10main.cpp" />
     <ClCompile Include="Lab10test_diver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

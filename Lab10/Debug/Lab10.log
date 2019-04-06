@@ -1,4 +1,2 @@
-﻿  Bank.cpp
-c:\users\emmanuel.torres\desktop\lab10\lab10\bank.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\emmanuel.torres\desktop\lab10\lab10\bank.cpp(57): warning C4018: '>': signed/unsigned mismatch
-c:\users\emmanuel.torres\desktop\lab10\lab10\bank.cpp(118): warning C4018: '>': signed/unsigned mismatch
+﻿  Bank_test_cases.cpp
+  Lab10.vcxproj -> C:\Users\emmanuel.torres\Desktop\Lab10\Debug\Lab10.exe

@@ -51,18 +51,23 @@ void Bank::nextMinute() {
 		if (newCustomer != nullptr) {
 			line.push(newCustomer);
 			currWait += newCustomer->helpTime;
+			newCustomer->arriveTime = currTime;
 			currCustomer = line.front();
-			currQueue++;
+
+			if (newCustomer != line.front())
+				currQueue++;
+			
 			totalCust++;
+
 			if (line.size() > maxQueue)
 				maxQueue = line.size() - 1;
 				
 			if (currWait > maxWait)
 				maxWait = currWait;
 
-			cout << "New customer arrived at minute: " << currTime << endl;
+			cout << "New customer arrived at minute: " << currCustomer->arriveTime << endl;
 			cout << "Current wait time in line: " << currWait << endl;
-			cout << "Current number of customers in the line: " << currQueue - 1 << endl << endl;
+			cout << "Current number of customers in the line: " << currQueue << endl << endl;
 				
 		}
 	}
@@ -87,73 +92,11 @@ void Bank::nextMinute() {
 	//Check if maxWait neeeds to be updated and then decrement the amount of currWait.
 	
 	//Always update maxQueue to the current number of line.
-	currQueue = line.size();
+	currQueue = line.size() - 1;
 	
 	if (currWait >= 1)
 		currWait--;
 }
-
-
-//***************************************
-//BankTest class definition.			*
-//***************************************
-//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//
-void BankTest::nextMinute() {
-	//Increment the time that the bank has been open.
-	if (currTime <= workDay || !line.empty())
-		currTime++;
-
-	//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
-	//to check for a possible new customer to add to the waiting line.
-	if (currTime <= workDay) {
-		newCustomer = custGenTestPtr->nextMinute();
-
-		if (newCustomer != nullptr) {
-			line.push(newCustomer);
-			currWait += newCustomer->helpTime;
-			currCustomer = line.front();
-			currQueue++;
-			totalCust++;
-			if (line.size() > maxQueue)
-				maxQueue = line.size() - 1;
-
-			if (currWait > maxWait)
-				maxWait = currWait;
-
-			cout << "New customer arrived at minute: " << currTime << endl;
-			cout << "Current wait time in line: " << currWait << endl;
-			cout << "Current number of customers in the line: " << currQueue - 1 << endl << endl;
-
-		}
-	}
-
-	//If statement that check if someone is being helped to decrement the amount of help
-	//time for the customer.
-	if (currCustomer != nullptr) {
-		currCustomer->helpTime--;
-
-	}
-
-	//If statement that checks if there is not a current client being helped to pop the currendt one
-	//(if necesarry) 
-	if (!line.empty() && currCustomer->helpTime <= 0) {
-		line.pop();
-		currQueue--;
-		cout << "Customer left at minute: " << currTime << endl;
-		cout << "Current wait time in line: " << currWait << endl;
-		cout << "Current number of customers in the line: " << currQueue << endl << endl;
-	}
-
-	//Check if maxWait neeeds to be updated and then decrement the amount of currWait.
-
-	//Always update maxQueue to the current number of line.
-	currQueue = line.size();
-
-	if (currWait >= 1)
-		currWait--;
-}
-
 
 //Bank simultation definition.
 void Bank::simulate() {
@@ -164,6 +107,74 @@ void Bank::simulate() {
 	cout << "The total number of customers during the day was: " << totalCust << " customers."<< endl;
 	cout << "The maximum wait time for the line during the day was: " << maxWait << " minutes." << endl;
 	cout << "The maximum line length during the day was: " << maxQueue << " customers in line" << endl;
+}
+
+
+//***************************************
+//BankTest class definition.			*
+//***************************************
+void BankTest::nextMinute() {
+	//Increment the time that the bank has been open.
+	if (currTime <= workDayTest || !line.empty())
+		currTime++;
+
+	//If statement that checks if the bank is still open tu use nextMinute() of CustomerGenerator
+	//to check for a possible new customer to add to the waiting line.
+	if (currTime <= workDayTest) {
+		newCustomer = custGenTestPtr->nextMinute();
+
+		if (newCustomer != nullptr) {
+			line.push(newCustomer);
+			newCustomer->arriveTime = currTime;
+			currWait += newCustomer->helpTime;
+			currCustomer = line.front();
+
+			if (newCustomer != line.front())
+				currQueue++;
+			
+			totalCust++;
+			if (line.size() - 1 > maxQueue)
+				maxQueue = line.size() - 1;
+
+			if (currWait > maxWait)
+				maxWait = currWait;
+
+			cout << "New customer arrived at minute: " << currTime << endl;
+			cout << "Current wait time in line: " << currWait << endl;
+			cout << "Current number of customers in the line: " << currQueue << endl << endl;
+
+		}
+	}
+
+	//If statement that check if someone is being helped to decrement the amount of help
+	//time for the customer.
+	if (currCustomer != nullptr) {
+		currCustomer->helpTime--;
+	}
+
+	//If statement that checks if there is not a current client being helped to pop the currendt one
+	//(if necesarry) 
+	if (!line.empty() && currCustomer->helpTime <= 0) {
+		line.pop();
+		
+		currQueue--;
+		
+		cout << "Customer left at minute: " << currTime << endl;
+		cout << "Current number of customers in the line: " << currQueue << endl;
+
+		currQueue = line.size() - 1;
+	}
+
+	if (currWait >= 1)
+		currWait--;
+	cout << "Current wait time in line: " << currWait << endl << endl;
+}
+
+//Banktest simulation definition	*
+void BankTest::simulate() {
+	do {
+		nextMinute();
+	} while (currTime <= workDayTest || !line.empty());
 }
 
 
