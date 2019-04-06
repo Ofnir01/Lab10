@@ -30,8 +30,8 @@ int randInt1To4() {
 //Constructor.
 Bank::Bank() {
 	currTime = 0;
-	currLine = 0;
-	currWait = 0;
+	waitLine = 0;
+	waitTime = 0;
 	maxQueue = 0;
 	totalCust = 0;
 	currCustomer = nullptr;
@@ -50,24 +50,24 @@ void Bank::nextMinute() {
 			
 		if (newCustomer != nullptr) {
 			line.push(newCustomer);
-			currWait += newCustomer->helpTime;
+			waitTime += newCustomer->helpTime;
 			newCustomer->arriveTime = currTime;
 			currCustomer = line.front();
 
 			if (newCustomer != line.front())
-				currLine++;
+				waitLine++;
 			
 			totalCust++;
 
 			if (line.size() > maxQueue)
 				maxQueue = line.size() - 1;
 				
-			if (currWait > maxWait)
-				maxWait = currWait;
+			if (waitTime > maxWait)
+				maxWait = waitTime;
 
 			cout << "New customer arrived at minute: " << currCustomer->arriveTime << endl;
-			cout << "Current wait time in line: " << currWait << endl;
-			cout << "Current number of customers in the line: " << currLine << endl << endl;
+			cout << "Current wait time in line: " << waitTime << endl;
+			cout << "Current number of customers in the line: " << waitLine << endl << endl;
 				
 		}
 	}
@@ -83,19 +83,19 @@ void Bank::nextMinute() {
 	//(if necesarry) 
 	if (!line.empty() && currCustomer->helpTime <= 0) {
 		line.pop();
-		currLine--;
+		waitLine--;
 		cout << "Customer left at minute: " << currTime << endl;
-		cout << "Current wait time in line: " << currWait << endl ;
-		cout << "Current number of customers in the line: " << currLine << endl << endl;
+		cout << "Current wait time in line: " << waitTime << endl ;
+		cout << "Current number of customers in the line: " << waitLine << endl << endl;
 	}
 	
 	//Check if maxWait neeeds to be updated and then decrement the amount of currWait.
 	
 	//Always update maxQueue to the current number of line.
-	currLine = line.size() - 1;
+	waitLine = line.size() - 1;
 	
-	if (currWait >= 1)
-		currWait--;
+	if (waitTime >= 1)
+		waitTime--;
 }
 
 //Bank simultation definition.
@@ -126,22 +126,22 @@ void BankTest::nextMinute() {
 		if (newCustomer != nullptr) {
 			line.push(newCustomer);
 			newCustomer->arriveTime = currTime;
-			currWait += newCustomer->helpTime;
+			waitTime += newCustomer->helpTime;
 			currCustomer = line.front();
 
 			if (newCustomer != line.front())
-				currLine++;
+				waitLine++;
 			
 			totalCust++;
 			if (line.size() - 1 > maxQueue)
 				maxQueue = line.size() - 1;
 
-			if (currWait > maxWait)
-				maxWait = currWait;
+			if (waitTime > maxWait)
+				maxWait = waitTime;
 
 			cout << "New customer arrived at minute: " << currTime << endl;
-			cout << "Current wait time in line: " << currWait << endl;
-			cout << "Current number of customers in the line: " << currLine << endl << endl;
+			cout << "Current wait time in line: " << waitTime << endl;
+			cout << "Current number of customers in the line: " << waitLine << endl << endl;
 
 		}
 	}
@@ -157,17 +157,17 @@ void BankTest::nextMinute() {
 	if (!line.empty() && currCustomer->helpTime <= 0) {
 		line.pop();
 		
-		currLine--;
+		waitLine--;
 		
 		cout << "Customer left at minute: " << currTime << endl;
-		cout << "Current number of customers in the line: " << currLine << endl;
+		cout << "Current number of customers in the line: " << waitLine << endl;
 
-		currLine = line.size() - 1;
+		waitLine = line.size() - 1;
 	}
 
-	if (currWait >= 1)
-		currWait--;
-	cout << "Current wait time in line: " << currWait << endl << endl;
+	if (waitTime >= 1)
+		waitTime--;
+	cout << "Current wait time in line: " << waitTime << endl << endl;
 }
 
 //Banktest simulation definition	*

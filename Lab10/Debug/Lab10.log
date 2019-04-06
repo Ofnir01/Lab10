@@ -1,2 +1,2 @@
-﻿  Bank_test_cases.cpp
-  Lab10.vcxproj -> C:\Users\emmanuel.torres\Desktop\Lab10\Debug\Lab10.exe
+﻿  Bank2.cpp
+c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data

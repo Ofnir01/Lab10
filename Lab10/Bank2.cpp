@@ -24,8 +24,8 @@ int randInt1To4() {
 //Constructor.
 Bank::Bank() {
 	currTime = 0;
-	currLine = 0;
-	currWait = 0;
+	waitLine = 0;
+	waitTime = 0;
 	maxQueue = 0;
 	totalCust = 0;
 	currCustomer = nullptr;
@@ -52,7 +52,7 @@ void Bank::nextMinute() {
 			//Because que in this simulation is people waiting on the line not counting the one being helped
 			//we check if the curennt customer is not equal to line.front() increment or not the line counter.
 			if (!line.empty())
-				currLine = line.size() - 1;
+				waitLine = line.size() - 1;
 
 			//Now we procede to report in real time that a customer just arrived to the bank right now.
 			cout << "New customer arrived at minute: " << newCustomer->arriveTime << endl;
@@ -62,7 +62,7 @@ void Bank::nextMinute() {
 			//cout << "Current wait time in the line: " << currWait << endl;
 
 			//We report how many people are in the line when this customer arrived (also counting the new arrived one).
-			cout << "Current number of customers in the line: " << currLine << endl << endl;
+			cout << "Current number of customers in the line: " << waitLine << endl << endl;
 		}
 	}
 
@@ -75,6 +75,11 @@ void Bank::nextMinute() {
 
 		//Becuase a customer was popped in this step, we need to update the current customer to the next line.front()
 		currCustomer = line.front();
+
+		//Becuase a customer was popped in this step, we update the length of the current waiting line.
+		if (!line.empty()) {
+			waitLine = line.size() - 1;
+		}
 
 		//Now that we popped out a customer, we procede to report that the custumer left
 		cout << "Customer left at minute: " << currTime << endl;
