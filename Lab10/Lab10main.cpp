@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Bank.h"
+#include "Bank2.h"
 using std::cout;
 
 int main() {

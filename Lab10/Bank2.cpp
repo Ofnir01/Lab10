@@ -113,3 +113,22 @@ void Bank::simulate() {
 	cout << "The maximum wait time for the line during the day was: " << maxWait << " minutes." << endl;
 	cout << "The maximum line length during the day was: " << maxLine << " customers in line" << endl;
 }
+
+//***************************************
+//CustomerGenerator class definition.	*
+//***************************************
+//CustomerGenerator nextMinute definition.
+Customer* CustomerGenerator::nextMinute() {
+	static Customer* newCust;
+	newCust = new Customer;
+	static int min_to_new_gen = randInt1To4();
+
+	if (min_to_new_gen-- == 0) {
+		//Set total time for that customer to be helped.
+		newCust->helpTime = randInt1To4();
+		min_to_new_gen = randInt1To4();
+		return newCust;
+	}
+	else
+		return nullptr;
+}

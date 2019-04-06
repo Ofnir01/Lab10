@@ -118,15 +118,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Bank.h" />
     <ClInclude Include="Bank2.h" />
     <ClInclude Include="catch.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bank.cpp" />
     <ClCompile Include="Bank2.cpp" />
-    <ClCompile Include="Bank_test_cases.cpp" />
-    <ClCompile Include="Lab10test_diver.cpp" />
+    <ClCompile Include="Lab10main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,2 @@
-﻿  Bank2.cpp
-c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.h(119): error C3867: 'BankTest::maxLine': non-standard syntax; use '&' to create a pointer to member
-c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.h(119): error C2440: 'return': cannot convert from 'int (__thiscall BankTest::* )(void) const' to 'int'
-  c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.h(119): note: There is no context in which this conversion is possible
-c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿Bank2.obj : error LNK2019: unresolved external symbol "public: struct Customer * __thiscall CustomerGenerator::nextMinute(void)" (?nextMinute@CustomerGenerator@@QAEPAUCustomer@@XZ) referenced in function "public: void __thiscall Bank::nextMinute(void)" (?nextMinute@Bank@@QAEXXZ)
+C:\Users\emmanuel.torres\Desktop\Lab10\Debug\Lab10.exe : fatal error LNK1120: 1 unresolved externals

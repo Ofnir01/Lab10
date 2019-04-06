@@ -28,18 +28,6 @@ public:
 	Customer* nextMinute();
 };
 
-//*******************************************************************************************************************
-//CustomerGeneratorTest class. This class inherits publicly from the CustomerGenerator class. It will override the	*
-//already existing function for the sole purpose of unit testing.													*
-//*******************************************************************************************************************
-class CustomerGeneratorTest : public CustomerGenerator {
-public:
-	//---------------------------------------------------------------------------------------
-	//This function decrements the number of minutes left  till the next customer			-
-	//---------------------------------------------------------------------------------------
-	Customer* nextMinute();
-};
-
 //******************************************************************************************************************
 //Bank class. This class will simulate the bank itself. It will have a constant length of a work day. It will		*
 //keep record of the number of minutes since the bank opened. It will have a pointer to the Current customer being	*
@@ -84,50 +72,6 @@ public:
 	//everyone at line in the bank has been helped.											-
 	//---------------------------------------------------------------------------------------
 	void simulate();
-
-};
-
-//*******************************************************************************************************************
-//BankTest class. This class inherits publicly from the Bank class. It will override the already					*
-//existing function for the sole purpose of unit testing.															*
-//*******************************************************************************************************************
-class BankTest : public Bank {
-private:
-	const int workDayTest = 10;
-	CustomerGeneratorTest* custGenTestPtr;
-
-public:
-	//---------------------------------------------------------------------------------------
-	//Function inherited from Bank class, with slight modifications that make it usable		-
-	//for unit testing.																		-
-	//---------------------------------------------------------------------------------------
-	void nextMinute();
-
-	//---------------------------------------------------------------------------------------
-	//Function inherited from Bank class, with slight modifications that make it usable		-
-	//for unit testing.																		-
-	//---------------------------------------------------------------------------------------
-	void simulate();
-
-	//Returns the maximum amount of waiting time
-	int maxWaiting() const {
-		return maxWait;
-	}
-
-	//Returns the maximum number of the line
-	int maxDayLine() const {
-		return maxLine;
-	}
-
-	//Returns the total amount of customers received during the period of time.
-	int totalCustom() const {
-		return totalCust;
-	}
-
-	//Returns the total time that the bank was operational helping people.
-	int endTime() {
-		return currTime;
-	}
 };
 
 #endif
