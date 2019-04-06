@@ -49,12 +49,13 @@ void Bank::nextMinute() {
 			
 			if (newCustomer != nullptr) {
 				line.push(newCustomer);
+				currWait = newCustomer->helpTime;
 				currCustomer = line.front();
-				currWait += currCustomer->helpTime;
+				//currWait += currCustomer->helpTime;
 				currQueue++;
 				totalCust++;
 				if (line.size() > maxQueue)
-					maxQueue = line.size();
+					maxQueue = line.size() - 1;
 				
 				if (currWait > maxWait)
 					maxWait = currWait;
@@ -62,6 +63,7 @@ void Bank::nextMinute() {
 				cout << "New customer arrived at minute: " << currTime << endl;
 				cout << "Current wait time in line: " << currWait << endl;
 				cout << "Current number of customers in the line: " << currQueue - 1 << endl << endl;
+				
 			}
 		}
 
@@ -76,6 +78,8 @@ void Bank::nextMinute() {
 		if (!line.empty() && currCustomer->helpTime == 0) {
 			line.pop();
 			currQueue--;
+			cout << "Customer left at minute: " << currTime << endl;
+			cout << "Current number of customers in the line: " << currQueue << endl << endl;
 		}
 		
 		//Check if maxWait neeeds to be updated and then decrement the amount of currWait.
@@ -84,13 +88,14 @@ void Bank::nextMinute() {
 
 		//Always update maxQueue to the current number of line.
 		currQueue = line.size();
+		
 }
 
 //Bank simultation definition.
 void Bank::simulate() {
 	do {
 		nextMinute();
-	} while (currTime <= workDay || currQueue <= 0);
+	} while (currTime <= workDay || currCustomer != nullptr);
 
 	cout << "The total number of customers during the day was: " << totalCust << " customers."<< endl;
 	cout << "The maximum wait time for the line during the day was: " << maxWait << " minutes." << endl;
