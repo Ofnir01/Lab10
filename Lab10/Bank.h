@@ -93,18 +93,35 @@ public:
 //*******************************************************************************************************************
 class BankTest : public Bank {
 private:
+	const int workDay = 20;
 	CustomerGeneratorTest* custGenTestPtr;
+
+public:
 	//---------------------------------------------------------------------------------------
-	//nextMinute function. This function will update the followig info:						-
-	//Will increment the number of minutes since opening. If there is a customer being		-
-	//helped, decrement the amount of help time still required for that customer; if the	-
-	//customer has no more minutes required, the customer leaves. If the bank is still open	-
-	//use nextMinute() of CustomerGenerator to check for a possible new customer to add		-
-	//to the waiting list. Note the current length of the line and check if the maximum		-
-	//should be updated. If there are customers in line and no customers being helped,		-
-	//begin helping the first customer in line and pop him from the waiting line.			-
+	//Function inherited from Bank class, with slight modifications that make it usable		-
+	//for unit testing.																		-
 	//---------------------------------------------------------------------------------------
 	void nextMinute();
+
+	//Returns the maximum amount of waiting time
+	int maxWaiting() const {
+		return maxWait;
+	}
+
+	//Returns the maximum number of the line
+	int maxLine() const {
+		return maxQueue;
+	}
+
+	//Returns the total amount of customers received during the period of time.
+	int totalCustom() const {
+		return totalCust;
+	}
+
+	//Returns the total time that the bank was operational helping people.
+	int endTime() {
+		return currTime;
+	}
 };
 
 #endif

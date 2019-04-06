@@ -94,7 +94,11 @@ void Bank::nextMinute() {
 }
 
 
-//BankTest nextMinute definition.
+//***************************************
+//BankTest class definition.			*
+//***************************************
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//
 void BankTest::nextMinute() {
 	//Increment the time that the bank has been open.
 	if (currTime <= workDay || !line.empty())
