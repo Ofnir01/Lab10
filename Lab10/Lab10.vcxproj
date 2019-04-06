@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bank.h" />
+    <ClInclude Include="Bank2.h" />
     <ClInclude Include="catch.hpp" />
   </ItemGroup>
   <ItemGroup>

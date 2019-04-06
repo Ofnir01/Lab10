@@ -1,5 +1,5 @@
-#ifndef BANK_H_
-#define BANK_H_
+#ifndef BANK2_H_
+#define BANK2_H_
 #include <queue>
 using std::queue;
 //*******************************************************************************************************************
@@ -65,7 +65,7 @@ protected:
 public:
 	//Default constructor.
 	Bank();
-	
+
 	//---------------------------------------------------------------------------------------
 	//nextMinute function. This function will update the followig info:						-
 	//Will increment the number of minutes since opening. If there is a customer being		-
@@ -115,7 +115,7 @@ public:
 	}
 
 	//Returns the maximum number of the line
-	int maxLine() const {
+	int maxDayLine() const {
 		return maxLine;
 	}
 
