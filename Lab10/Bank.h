@@ -38,7 +38,7 @@ public:
 class Bank
 {
 private:
-	const int workDay = 1000;		//Number of minutes open.
+	const int workDay = 80;			//Number of minutes open.
 	int currTime;					//Number of minutes since the bank opened.
 	int maxQueue;					//Number of the maximum queue length seen during the day.
 	int currQueue;					//Number of people in the line at every minute.
