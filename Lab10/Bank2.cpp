@@ -46,7 +46,7 @@ void Bank::nextMinute() {
 
 	//Display a message that signals when the bank closes.
 	if (currTime == workDay)
-		cout << endl << "****************************** BANK CLOSES ******************************" << endl << endl;
+		cout << "------------------------------ BANK CLOSES ------------------------------" << endl;
 
 	//If statement tha will check id the bank is still open to check if there is a new customer at the door.
 	if (currTime < workDay) {

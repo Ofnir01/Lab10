@@ -29,10 +29,13 @@
     <ClCompile Include="Bank2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Lab10main.cpp">
+    <ClCompile Include="bankTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bankTest.cpp">
+    <ClCompile Include="Bank_test_cases.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lab10test_diver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

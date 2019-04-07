@@ -128,7 +128,8 @@
   <ItemGroup>
     <ClCompile Include="Bank2.cpp" />
     <ClCompile Include="bankTest.cpp" />
-    <ClCompile Include="Lab10main.cpp" />
+    <ClCompile Include="Bank_test_cases.cpp" />
+    <ClCompile Include="Lab10test_diver.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
