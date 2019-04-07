@@ -39,8 +39,12 @@ void Bank::nextMinute() {
 	if (currTime <= workDay || !line.empty())
 		currTime++;
 
+	//Display a message that signals when the bank closes.
+	if (currTime == workDay)
+		cout << "****************************** BANK CLOSES ******************************" << endl << endl;
+
 	//If statement tha will check id the bank is still open to check if there is a new customer at the door.
-	if (currTime <= workDay) {
+	if (currTime < workDay) {
 		newCustomer = custGenPtr->nextMinute(); //Info stored on this pointer for not calling custGenPtr->nextMinute() multiple times due to the random factor
 
 		//If statement that will check if the new generated customer is not equal to null ptr.
@@ -58,22 +62,26 @@ void Bank::nextMinute() {
 
 			//Now we procede to report in real time that a customer just arrived to the bank right now.
 			cout << "New customer arrived at minute: " << newCustomer->arriveTime << endl;
+
+			//Display the help time of the customer.
+			cout << "Help time needed for this customer: " << newCustomer->helpTime << endl;
 		}
 	}
 
 	//If statement that will check if the customer being helped is already done, and it will
 	//pop him out of the list if his help time is already zero. This is done before decrementing the wait time
 	//so we can ensure that we will not get a negative wait time. If the condition is true, we eill pop that customer.
-	if (currCustomer->helpTime == 0) {
+	if (currCustomer != nullptr && currCustomer->helpTime == 0) {
 		//pop the customer that already was done being helped.
 		line.pop();
 
-		//Becuase a customer was popped in this step, we need to update the current customer to the next line.front()
-		currCustomer = line.front();
+		currCustomer = nullptr;
 
+		//Becuase a customer was popped in this step, we need to update the current customer to the next line.front() as long as the line is not empty.
 		//Becuase a customer was popped in this step, we update the length of the current waiting line.
 		if (!line.empty()) {
 			waitLine = line.size() - 1;
+			currCustomer = line.front();
 		}
 
 		//Now that we popped out a customer, we procede to report that the custumer left
@@ -98,15 +106,15 @@ void Bank::nextMinute() {
 		maxLine = waitLine;
 
 	//Report the total amount of wait time and wait line in the current minute.
-	cout << "Current wait time minutes in the line: " << waitTime << endl << endl;
-	cout << "Current number of customers in the waiting line: " << waitLine << endl;
+	cout << "Current wait time minutes in the line after "<< currTime <<" minutes: " << waitTime << endl;
+	cout << "Current number of customers in the waiting line after " << currTime << " minutes: " << waitLine << endl << endl;
 }
 
 //Bank simultation definition.
 void Bank::simulate() {
 	do {
 		nextMinute();
-	} while (currTime <= workDay || !line.empty());
+	} while (currTime < workDay || !line.empty());
 
 	//When the bank is already closed and all the customers have left, we procede to show our final results.
 	cout << "The total number of customers during the day was: " << totalCust << " customers." << endl;
@@ -120,10 +128,10 @@ void Bank::simulate() {
 //CustomerGenerator nextMinute definition.
 Customer* CustomerGenerator::nextMinute() {
 	static Customer* newCust;
-	newCust = new Customer;
 	static int min_to_new_gen = randInt1To4();
 
 	if (min_to_new_gen-- == 0) {
+		newCust = new Customer;
 		//Set total time for that customer to be helped.
 		newCust->helpTime = randInt1To4();
 		min_to_new_gen = randInt1To4();
