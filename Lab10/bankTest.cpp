@@ -50,6 +50,7 @@ void BankTest::nextMinute() {
 	//Display message if bank is empty.
 	if (line.empty())
 		cout << "Bank is empty." << endl;
+	
 
 	//Check if maxLine or maxWait need to be updated. This happens at the very start of the minute.
 	if (waitTime > maxWait)
@@ -64,6 +65,8 @@ void BankTest::nextMinute() {
 	if (currCustomer != nullptr && currCustomer->helpTime == 0) {
 		//pop the customer that already was done being helped.
 		line.pop();
+		//Now that we popped out a customer, we procede to report that the custumer left
+		cout << "Customer left at minute: " << currTime << endl;
 
 		currCustomer = nullptr;
 
@@ -72,10 +75,8 @@ void BankTest::nextMinute() {
 		if (!line.empty()) {
 			waitLine = line.size() - 1;
 			currCustomer = line.front();
+			cout << "Customer is being helped." << endl;
 		}
-
-		//Now that we popped out a customer, we procede to report that the custumer left
-		cout << "Customer left at minute: " << currTime << endl;
 	}
 
 	//Report the total amount of wait time and wait line at the start of the current minute.

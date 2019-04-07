@@ -4,7 +4,7 @@
 using std::cout;
 
 int main() {
-	BankTest bank;
+	Bank bank;
 	bank.simulate();
 
 	return 0;

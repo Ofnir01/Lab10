@@ -90,6 +90,8 @@ void Bank::nextMinute() {
 	if (currCustomer != nullptr && currCustomer->helpTime == 0) {
 		//pop the customer that already was done being helped.
 		line.pop();
+		//Now that we popped out a customer, we procede to report that the custumer left
+		cout << "Customer left at minute: " << currTime << endl;
 
 		currCustomer = nullptr;
 
@@ -98,10 +100,8 @@ void Bank::nextMinute() {
 		if (!line.empty()) {
 			waitLine = line.size() - 1;
 			currCustomer = line.front();
+			cout << "Next customer is now being helped." << endl;
 		}
-
-		//Now that we popped out a customer, we procede to report that the custumer left
-		cout << "Customer left at minute: " << currTime << endl;
 	}
 
 	//Report the total amount of wait time and wait line at the start of the current minute.

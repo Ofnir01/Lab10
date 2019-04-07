@@ -1,4 +1,5 @@
-﻿  bankTest.cpp
-c:\users\emmanuel.torres\desktop\lab10\lab10\banktest.cpp(40): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-c:\users\emmanuel.torres\desktop\lab10\lab10\banktest.cpp(73): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+﻿  Bank2.cpp
+c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.cpp(66): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+c:\users\emmanuel.torres\desktop\lab10\lab10\bank2.cpp(101): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
   Lab10.vcxproj -> C:\Users\emmanuel.torres\Desktop\Lab10\x64\Debug\Lab10.exe
