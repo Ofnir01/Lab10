@@ -39,9 +39,14 @@ void Bank::nextMinute() {
 	if (currTime <= workDay || !line.empty())
 		currTime++;
 
+	//Print current time
+	cout << "****************" << endl;
+	cout << "   Time: " << currTime << "    " << endl;
+	cout << "****************" << endl;
+
 	//Display a message that signals when the bank closes.
 	if (currTime == workDay)
-		cout << "****************************** BANK CLOSES ******************************" << endl << endl;
+		cout << endl << "****************************** BANK CLOSES ******************************" << endl << endl;
 
 	//If statement tha will check id the bank is still open to check if there is a new customer at the door.
 	if (currTime < workDay) {
@@ -67,6 +72,10 @@ void Bank::nextMinute() {
 			cout << "Help time needed for this customer: " << newCustomer->helpTime << endl;
 		}
 	}
+
+	//Display message if bank is empty.
+	if (line.empty())
+		cout << "Bank is empty." << endl;
 
 	//If statement that will check if the customer being helped is already done, and it will
 	//pop him out of the list if his help time is already zero. This is done before decrementing the wait time
