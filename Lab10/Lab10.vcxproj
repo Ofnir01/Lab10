@@ -122,10 +122,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bank2.h" />
+    <ClInclude Include="BankTest.h" />
     <ClInclude Include="catch.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bank2.cpp" />
+    <ClCompile Include="bankTest.cpp" />
     <ClCompile Include="Lab10main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

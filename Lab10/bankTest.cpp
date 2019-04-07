@@ -1,4 +1,4 @@
-#include "Bank2.h"
+#include "BankTest.h"
 #include <queue>
 #include <random>
 #include <ctime>
@@ -7,36 +7,10 @@ using std::cout;
 using std::endl;
 using std::queue;
 
-//***********************************************************
-// Returns an integer 1, 2, 3, or 4 uniformly at random		*
-//***********************************************************
-int randInt1To4() {
-	// shared random number generator (seeded with clock time)
-	static std::default_random_engine randEngine(std::time(0));
-
-	// shared uniform distribution
-	static std::uniform_int_distribution<int> dist1To4(1, 4);
-
-	// return a sample
-	return dist1To4(randEngine);
-}
-
-//Constructor.
-Bank::Bank() {
-	currTime = 0;
-	waitLine = 0;
-	waitTime = 0;
-	maxLine = 0;
-	maxWait = 0;
-	totalCust = 0;
-	currCustomer = nullptr;
-}
-
-//Bank nextMinute definition.
-void Bank::nextMinute() {
+void BankTest::nextMinute() {
 	//If statement that will increment the time even if the bank is already closed but there
 	//are still sutomers inside.
-	if (currTime <= workDay || !line.empty())
+	if (currTime <= workDayTest || !line.empty())
 		currTime++;
 
 	//Print current time
@@ -45,21 +19,21 @@ void Bank::nextMinute() {
 	cout << "****************" << endl;
 
 	//Display a message that signals when the bank closes.
-	if (currTime == workDay)
+	if (currTime == workDayTest)
 		cout << endl << "****************************** BANK CLOSES ******************************" << endl << endl;
 
 	//If statement tha will check id the bank is still open to check if there is a new customer at the door.
-	if (currTime < workDay) {
-		newCustomer = custGenPtr->nextMinute(); //Info stored on this pointer for not calling custGenPtr->nextMinute() multiple times due to the random factor
+	if (currTime < workDayTest) {
+		newCustomer = custGenPtrTest->nextMinute(); //Info stored on this pointer for not calling custGenPtr->nextMinute() multiple times due to the random factor
 
 		//If statement that will check if the new generated customer is not equal to null ptr.
 		if (newCustomer != nullptr) {
 			totalCust++;							//Becuase the new customer was not null ptr, we increment the total amount of customers that the bank has received during the day.
 			line.push(newCustomer);					//store the new customer in the queue
-			newCustomer->arriveTime = currTime;		//Set the arrival time for that customer to be equal to the current time.
 			waitTime += newCustomer->helpTime;		//Add to wait time the amount of help time that the customer needs.
+			newCustomer->arriveTime = currTime;		//Set the arrival time for that customer to be equal to the current time.
 			currCustomer = line.front();			//Set the front customer of the queue to be the current customer to be helped.
-			
+
 			//Because que in this simulation is people waiting on the line not counting the one being helped
 			//we check if the curennt customer is not equal to line.front() increment or not the line counter.
 			if (!line.empty())
@@ -119,11 +93,11 @@ void Bank::nextMinute() {
 	}
 }
 
-//Bank simultation definition.
-void Bank::simulate() {
+
+void BankTest::simulate() {
 	do {
 		nextMinute();
-	} while (currTime < workDay || !line.empty());
+	} while (currTime < workDayTest || !line.empty());
 
 	//When the bank is already closed and all the customers have left, we procede to show our final results.
 	cout << "The total number of customers during the day was: " << totalCust << " customers." << endl;
@@ -135,15 +109,16 @@ void Bank::simulate() {
 //CustomerGenerator class definition.	*
 //***************************************
 //CustomerGenerator nextMinute definition.
-Customer* CustomerGenerator::nextMinute() {
+Customer* CustomerGeneratorTest::nextMinute() {
+
 	static Customer* newCust;
-	static int min_to_new_gen = randInt1To4();
+	static int min_to_new_gen = 2;
 
 	if (min_to_new_gen-- == 0) {
 		newCust = new Customer;
 		//Set total time for that customer to be helped.
-		newCust->helpTime = randInt1To4();
-		min_to_new_gen = randInt1To4();
+		newCust->helpTime = 6;
+		min_to_new_gen = 2;
 		return newCust;
 	}
 	else

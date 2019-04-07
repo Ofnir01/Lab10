@@ -21,12 +21,18 @@
     <ClInclude Include="Bank2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BankTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bank2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Lab10main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bankTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
