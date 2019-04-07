@@ -41,7 +41,7 @@ void Bank::nextMinute() {
 
 	//Print current time
 	cout << "****************" << endl;
-	cout << "   Time: " << currTime << "    " << endl;
+	cout << "   Time: " << currTime << endl;
 	cout << "****************" << endl;
 
 	//Display a message that signals when the bank closes.
